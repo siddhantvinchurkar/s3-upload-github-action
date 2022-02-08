@@ -17,8 +17,6 @@ const uploadFile = (fileName) => {
   } else {
     const fileContent = fs.readFileSync(fileName);
 
-    console.log(`${process.env.S3_PREFIX || ""}/${(path.basename(path.normalize(fileName)))}`);
-
     // Setting up S3 upload parameters
     const params = {
       Bucket: process.env.S3_BUCKET,
