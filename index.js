@@ -22,6 +22,7 @@ const uploadFile = (fileName) => {
       Bucket: process.env.S3_BUCKET,
       Key: `${process.env.S3_PREFIX || ""}/${(path.basename(path.normalize(fileName)))}`,
       Body: fileContent,
+      CacheControl: "max-age=31536000",
     };
     const acl = process.env.S3_ACL;
     if (acl) {
