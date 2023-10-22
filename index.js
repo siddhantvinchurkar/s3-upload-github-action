@@ -1,6 +1,7 @@
 const aws = require("aws-sdk");
 const fs = require("fs");
 const path = require("path");
+var mime = require('mime-types')
 
 const spacesEndpoint = new aws.Endpoint(process.env.S3_ENDPOINT);
 const s3 = new aws.S3({
@@ -23,6 +24,7 @@ const uploadFile = (fileName) => {
       Key: `${process.env.S3_PREFIX || ""}${path.normalize(fileName).replace('public/','')}`,
       Body: fileContent,
       CacheControl: "max-age=31536000",
+      ContentType: mime.contentType(path.normalize(fileName).replace('public/','')),
     };
     const acl = process.env.S3_ACL;
     if (acl) {
